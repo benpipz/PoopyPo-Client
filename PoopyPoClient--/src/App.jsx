@@ -1,16 +1,10 @@
 import React from "react";
 import PoopyMap from "./Components/Map/PoopyMap";
 import NavBar from "./Components/NavBar";
+import "./Styles.css";
 
 const App = () => (
-  <div
-    style={{
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-    }}
-  >
+  <div className="app">
     <NavBar />
     <PoopyMap />
   </div>

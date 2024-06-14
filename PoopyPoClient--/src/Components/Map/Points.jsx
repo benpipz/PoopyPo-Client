@@ -5,11 +5,11 @@ import { useState, useRef, useEffect } from "react";
 import { MarkerClusterer } from "@googlemaps/markerclusterer";
 import MarkerWithInfoWindow from "./MarkerWithInfoWindow";
 
-const Points = ({ points }) => {
+const Points = ({ points, askForRoute }) => {
   const map = useMap();
   const [markers, setMarkers] = useState({});
-  const [markerref, markererRef] = useAdvancedMarkerRef();
   const clusterer = useRef(null);
+  const [currentShowing, setcurrentShowing] = useState();
 
   useEffect(() => {
     if (!map) return;
@@ -48,6 +48,9 @@ const Points = ({ points }) => {
               title={"poop"}
               content={point.key}
               key={point.key}
+              askForRoute={askForRoute}
+              setcurrentShowing={setcurrentShowing}
+              currentShowing={currentShowing}
             />
           );
         })}

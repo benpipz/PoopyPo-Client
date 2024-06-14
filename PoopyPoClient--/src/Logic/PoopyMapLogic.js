@@ -16,3 +16,13 @@ export const RandonPoopLocationRishonLetsion = () => {
   const key = JSON.stringify({ lat, lng }).toString();
   return { key: key, lat: lat, lng: lng };
 };
+
+
+export const RetreiveLocalLocation = (setLocalLocation) => {
+  navigator.geolocation.getCurrentPosition((position) => {
+    setLocalLocation({
+      lat: position.coords.latitude,
+      lng: position.coords.longitude,
+    });
+  });
+}

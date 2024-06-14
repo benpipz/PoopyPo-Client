@@ -1,6 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { RandonPoopLocationRishonLetsion } from "../Logic/PoopyMapLogic";
+import "../Styles.css";
 
 const MapButtons = ({ addPoint }) => {
   const makeRealPoint = () => {
@@ -24,7 +25,7 @@ const MapButtons = ({ addPoint }) => {
   };
 
   return (
-    <div style={{ display: "flex" }}>
+    <div className="container">
       <button className="btn btn-primary" onClick={makeRealPoint}>
         Poop at my location
       </button>

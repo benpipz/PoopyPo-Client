@@ -1,25 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAdvancedMarkerRef } from "@vis.gl/react-google-maps";
 import { useCallback } from "react";
 import { AdvancedMarker } from "@vis.gl/react-google-maps";
 import { InfoWindow } from "@vis.gl/react-google-maps";
 import poop from "../../assets/face-base-poop.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
+import MyInfoWindow from "./InfoWindow";
 
 const image = <img src={poop} style={{ width: "30px", height: "30px" }}></img>;
 
-const MarkerWithInfoWindow = ({ position, title, content }) => {
+const MarkerWithInfoWindow = ({
+  position,
+  title,
+  content,
+  askForRoute,
+  currentShowing,
+  setcurrentShowing,
+}) => {
   const [markerRef, marker] = useAdvancedMarkerRef();
 
   const [infoWindowShown, setInfoWindowShown] = useState(false);
   const [upvotes, setUpvotes] = useState(0);
-  const handleMarkerClick = useCallback(
-    () => setInfoWindowShown((isShown) => !isShown),
-    []
-  );
+  const handleMarkerClick = useCallback(() => {
+    setcurrentShowing(position);
+    setInfoWindowShown((isShown) => !isShown);
+  }, []);
 
+  useEffect(() => {
+    if (currentShowing != position) {
+      handleClose();
+    }
+  }, [currentShowing]);
   const handleClose = useCallback(() => setInfoWindowShown(false), []);
 
+  const getRoute = (marker) => {
+    const position = { lat: marker.ft.lat, lng: marker.ft.lng };
+    askForRoute(position);
+  };
   return (
     <>
       <AdvancedMarker
@@ -31,16 +48,12 @@ const MarkerWithInfoWindow = ({ position, title, content }) => {
       </AdvancedMarker>
       {infoWindowShown && (
         <InfoWindow anchor={marker} onClose={handleClose}>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <button
-              className="btn btn-secondary"
-              onClick={() => setUpvotes(upvotes + 1)}
-            >
-              Vote
-            </button>
-            <p>upvotes: {upvotes}</p>
-            <p>Reporter: Shraga Shragovitch</p>
-          </div>
+          <MyInfoWindow
+            upvotes={upvotes}
+            setUpvotes={setUpvotes}
+            getRoute={getRoute}
+            marker={marker}
+          />
         </InfoWindow>
       )}
     </>

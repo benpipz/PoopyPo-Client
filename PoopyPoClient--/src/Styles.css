@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px;
+}
+
+.smallContainer {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+.smallCol {
+  display: flex;
+  flex-direction: column;
+}
+
+.spacer {
+  margin: 10px;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgb(202, 200, 98);
+}
