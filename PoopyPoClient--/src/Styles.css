@@ -3,12 +3,24 @@
   justify-content: space-evenly;
   padding: 10px;
 }
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  box-sizing: border-box;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-evenly;
+  padding: 10px;
+}
 
 .smallContainer {
   display: flex;
   justify-content: center;
-  gap: 5px;
 }
+
 .smallCol {
   display: flex;
   flex-direction: column;
@@ -22,5 +34,152 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgb(202, 200, 98);
+  background-color: rgb(253, 236, 175);
+  height: 100vh;
+  transition: filter 0.3s;
+}
+
+.app.blur {
+  filter: blur(5px);
+}
+
+.container2 {
+  /* Styles for the container element (optional) */
+  height: 100%; /* Set container height to 100% of viewport height */
+  width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.sub-div {
+  height: 89%; /* Sub-div will take up remaining height after accounting for container's padding/border */
+}
+
+.logo-text {
+  font-size: 1em;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.navbar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* background-color: rgb(249, 182, 109); */
+  background: rgb(101 163, 67);
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+nav {
+  display: flex;
+  width: 100%;
+  background: rgb(101 163, 67);
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+}
+
+nav ul {
+  width: 100%;
+  list-style: none;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin: 0px 12px -20px;
+}
+
+nav h4 {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+
+nav li {
+  height: 50px;
+  padding-left: 15px;
+}
+
+nav a {
+  height: 100%;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  color: black;
+}
+
+.sidebar li {
+  width: 100%;
+}
+.sidebar a {
+  width: 100%;
+}
+.menu-button {
+  display: none;
+}
+@media (max-width: 800px) {
+  .hideOnMobile {
+    display: none;
+  }
+  .menu-button {
+    display: block;
+  }
+}
+@media (max-width: 400px) {
+  .sidebar {
+    width: 100%;
+  }
+}
+
+.sidebar {
+  display: flex;
+  position: fixed;
+  top: 0;
+  right: -250px; /* Start position (hidden) */
+  width: 150px;
+  height: 100%;
+  background-color: #ffffff;
+  color: #000000;
+  transition: right 0.3s ease-in-out;
+  padding: 1rem;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  z-index: 1000; /* Ensure it's above other content */
+}
+
+.sidebar.open {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  right: 0; /* When open, the sidebar is fully visible */
+}
+
+.sidebar2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 17px;
+  right: 0; /* When open, the sidebar is fully visible */
+  text-decoration: none;
+}
+
+.sidebar2.open ul {
+  list-style: none;
+  text-decoration: none;
+}
+
+.sidebar2 li {
+  margin-top: 30px;
+  height: 100%;
+  pad: 0 30px;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  color: rgb(0, 0, 0);
 }

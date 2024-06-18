@@ -25,7 +25,7 @@ const MapButtons = ({ addPoint }) => {
   };
 
   return (
-    <div className="container">
+    <div className="buttons">
       <button className="btn btn-primary" onClick={makeRealPoint}>
         Poop at my location
       </button>
