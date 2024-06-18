@@ -9,6 +9,17 @@ const initialLocation = {
   lat: 31.9608819275,
   lng: 34.7959617739531,
 };
+
+const overlayStyle = {
+  position: "absolute",
+  top: "65%",
+  right: "0px",
+  transform: "translateY(-50%)",
+  borderRadius: "5px",
+  boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
+  zIndex: 100,
+};
+
 const PoopyMap = () => {
   const [points, setPoints] = useState([]);
   const [localLocation, setLocalLocation] = useState(initialLocation);
@@ -29,10 +40,9 @@ const PoopyMap = () => {
   return (
     <div className="container2">
       <APIProvider apiKey={"AIzaSyC_IxFbNnxR5MKL8i7Y4XyPR-3LLYtGrNg"}>
-        <MapButtons addPoint={addToCurrentPoints} />
         <div className="sub-div">
           <Map
-            style={{ width: "100%", height: "95%" }}
+            style={{ width: "100%", height: "85vh" }}
             defaultCenter={localLocation}
             defaultZoom={14}
             gestureHandling={"greedy"}
@@ -43,6 +53,9 @@ const PoopyMap = () => {
               <Directions from={localLocation} to={askForRoute} />
             )}
             <Points points={points} askForRoute={updateRoute} />
+            <div style={overlayStyle}>
+              <MapButtons addPoint={addToCurrentPoints} />
+            </div>
           </Map>
         </div>
       </APIProvider>

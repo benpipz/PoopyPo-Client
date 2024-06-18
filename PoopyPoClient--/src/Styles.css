@@ -12,8 +12,7 @@
 
 .buttons {
   display: flex;
-  justify-content: space-evenly;
-  padding: 10px;
+  flex-direction: column;
 }
 
 .smallContainer {
@@ -47,6 +46,7 @@
   /* Styles for the container element (optional) */
   height: 100%; /* Set container height to 100% of viewport height */
   width: 100%;
+  padding-top: 10px;
   padding-left: 10px;
   padding-right: 10px;
 }
