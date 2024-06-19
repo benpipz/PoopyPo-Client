@@ -2,6 +2,9 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { RandonPoopLocationRishonLetsion } from "../Logic/PoopyMapLogic";
 import "../Styles.css";
+import Poopy from "../assets/poopEmojy.png";
+import Poopy2 from "../assets/poopyEmojy2.png";
+
 const buttonStyle = {
   margin: "0 10px", // Adds space between the buttons
   padding: "10px 20px",
@@ -34,12 +37,31 @@ const MapButtons = ({ addPoint }) => {
 
   return (
     <div className="buttons">
-      <button className="btn btn-primary" onClick={makeRealPoint}>
+      <img
+        src={Poopy}
+        style={{
+          width: "60px",
+          height: "60px",
+          marginLeft: "",
+          marginBottom: "15px",
+        }}
+        className="emojyButton"
+        alt="poopy"
+        onClick={makeRealPoint}
+      />
+      <img
+        src={Poopy2}
+        style={{ width: "60px", height: "60px", marginLeft: "" }}
+        alt="poopy"
+        onClick={makeRandomPoint}
+      />
+
+      {/* <button className="btn btn-primary" onClick={makeRealPoint}>
         GPS
       </button>
       <button className="btn btn-secondary" onClick={makeRandomPoint}>
         Random
-      </button>
+      </button> */}
     </div>
   );
 };

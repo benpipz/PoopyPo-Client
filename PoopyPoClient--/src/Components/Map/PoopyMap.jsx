@@ -12,8 +12,8 @@ const initialLocation = {
 
 const overlayStyle = {
   position: "absolute",
-  top: "65%",
-  right: "0px",
+  top: "82%",
+  left: "8px",
   transform: "translateY(-50%)",
   borderRadius: "5px",
   boxShadow: "0 2px 5px rgba(0,0,0,0.3)",
