@@ -5,6 +5,7 @@ import "./Styles.css";
 import Sidebar from "./Components/Sidebar";
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Login from "./Components/Login";
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -21,7 +22,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<PoopyMap />} />
           <Route path="/about" element={<h1>About</h1>} />
-          <Route path="/login" element={<h1>Login</h1>} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
     </Router>

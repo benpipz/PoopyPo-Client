@@ -34,13 +34,13 @@ function Sidebar({ isOpen, toggleSidebar }) {
             </svg>
           </div>
           <ul className="sidebar2">
-            <Link to="/">
+            <Link onClick={toggleSidebar} to="/">
               <li>Home</li>
             </Link>
-            <Link to="/about">
+            <Link onClick={toggleSidebar} to="/about">
               <li>About</li>
             </Link>
-            <Link to="/login">
+            <Link onClick={toggleSidebar} to="/login">
               <li>Login</li>
             </Link>
           </ul>

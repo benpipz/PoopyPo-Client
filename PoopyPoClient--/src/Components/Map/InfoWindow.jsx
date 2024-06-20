@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../../Styles.css";
 import Icons from "../../assets/Icons";
 
-const MyInfoWindow = ({ marker, upvotes, setUpvotes, getRoute }) => {
+const MyInfoWindow = ({ upvotes, setUpvotes, getRoute }) => {
   return (
     <div className="smallCol">
       <button
@@ -29,7 +29,7 @@ const MyInfoWindow = ({ marker, upvotes, setUpvotes, getRoute }) => {
       <button
         style={{ margin: "1px" }}
         className="btn btn-primary"
-        onClick={() => getRoute(marker)}
+        onClick={() => getRoute()}
       >
         <div className="smallContainer">
           Go!

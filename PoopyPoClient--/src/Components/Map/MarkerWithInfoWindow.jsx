@@ -33,8 +33,7 @@ const MarkerWithInfoWindow = ({
   }, [currentShowing]);
   const handleClose = useCallback(() => setInfoWindowShown(false), []);
 
-  const getRoute = (marker) => {
-    const position = { lat: marker.ft.lat, lng: marker.ft.lng };
+  const getRoute = () => {
     askForRoute(position);
   };
   return (
@@ -52,7 +51,6 @@ const MarkerWithInfoWindow = ({
             upvotes={upvotes}
             setUpvotes={setUpvotes}
             getRoute={getRoute}
-            marker={marker}
           />
         </InfoWindow>
       )}
