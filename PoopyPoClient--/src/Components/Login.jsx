@@ -16,7 +16,7 @@ const Login = () => {
   };
   return (
     <div className="shadow-xl mt-10 p-10 text-gray-700 rounded-lg">
-      <h2 className="text-3xl font-medium">Join today</h2>
+      <h2 className="text-3xl font-medium">Join today!</h2>
       <div className="py-4">
         <h3 className="py-4">Sign in with one of the providers</h3>
         <div className="flex flex-col gap-4">
