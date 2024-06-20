@@ -20,7 +20,7 @@ const App = () => {
         <NavBar toggleSidebar={toggleSidebar} />
         <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         <Routes>
-          <Route path="/" element={<PoopyMap />} />
+          <Route path="/PoopyPoClient" element={<PoopyMap />} />
           <Route path="/about" element={<h1>About</h1>} />
           <Route path="/login" element={<Login />} />
         </Routes>
