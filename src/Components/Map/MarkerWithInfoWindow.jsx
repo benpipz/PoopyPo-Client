@@ -11,6 +11,7 @@ const image = <img src={poop} style={{ width: "30px", height: "30px" }}></img>;
 
 const MarkerWithInfoWindow = ({
   position,
+  reporter,
   title,
   content,
   askForRoute,
@@ -51,6 +52,7 @@ const MarkerWithInfoWindow = ({
             upvotes={upvotes}
             setUpvotes={setUpvotes}
             getRoute={getRoute}
+            reporter={reporter}
           />
         </InfoWindow>
       )}

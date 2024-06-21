@@ -4,7 +4,7 @@ const Random = (minRange, maxRange) => {
   return Math.random() * (max - min + 1) + min;
 };
 
-export const RandonPoopLocationRishonLetsion = () => {
+export const RandonPoopLocationRishonLetsion = (name) => {
   const minLat = 31.95;
   const maxLat = 31.99;
   const minLng = 34.75;
@@ -14,9 +14,8 @@ export const RandonPoopLocationRishonLetsion = () => {
   const lng = Math.random() * (maxLng - minLng) + minLng;
 
   const key = JSON.stringify({ lat, lng }).toString();
-  return { key: key, lat: lat, lng: lng };
+  return { key: key, lat: lat, lng: lng, name: name };
 };
-
 
 export const RetreiveLocalLocation = (setLocalLocation) => {
   navigator.geolocation.getCurrentPosition((position) => {
@@ -25,4 +24,4 @@ export const RetreiveLocalLocation = (setLocalLocation) => {
       lng: position.coords.longitude,
     });
   });
-}
+};

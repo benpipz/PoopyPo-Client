@@ -5,6 +5,8 @@ import Points from "./Points";
 import MapButtons from "../MapButtons";
 import { RetreiveLocalLocation } from "../../Logic/PoopyMapLogic";
 import Directions from "./Directions";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../../util/firebase";
 const initialLocation = {
   lat: 31.9608819275,
   lng: 34.7959617739531,
@@ -21,6 +23,7 @@ const overlayStyle = {
 };
 
 const PoopyMap = () => {
+  const [user, loading] = useAuthState(auth);
   const [points, setPoints] = useState([]);
   const [localLocation, setLocalLocation] = useState(initialLocation);
   const [askForRoute, setAskForRoute] = useState();
@@ -53,9 +56,11 @@ const PoopyMap = () => {
               <Directions from={localLocation} to={askForRoute} />
             )}
             <Points points={points} askForRoute={updateRoute} />
-            <div style={overlayStyle}>
-              <MapButtons addPoint={addToCurrentPoints} />
-            </div>
+            {user && (
+              <div style={overlayStyle}>
+                {<MapButtons addPoint={addToCurrentPoints} />}
+              </div>
+            )}
           </Map>
         </div>
       </APIProvider>

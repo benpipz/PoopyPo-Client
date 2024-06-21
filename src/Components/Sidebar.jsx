@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../util/firebase";
 const Xicon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
@@ -12,6 +14,8 @@ const Xicon = (
 );
 
 function Sidebar({ isOpen, toggleSidebar }) {
+  const [user, loading] = useAuthState(auth);
+
   return (
     <div className={`sidebar ${isOpen ? "open" : ""}`}>
       {isOpen && (
@@ -34,15 +38,31 @@ function Sidebar({ isOpen, toggleSidebar }) {
             </svg>
           </div>
           <ul className="sidebar2">
-            <Link onClick={toggleSidebar} to="/">
+            <Link onClick={toggleSidebar} to="/PoopyPoClient">
               <li>Home</li>
             </Link>
-            <Link onClick={toggleSidebar} to="/about">
+            <Link onClick={toggleSidebar} to="/PoopyPoClient/about">
               <li>About</li>
             </Link>
-            <Link onClick={toggleSidebar} to="/login">
-              <li>Login</li>
-            </Link>
+            {user ? (
+              <Link to="/">
+                <li
+                  onClick={() => {
+                    auth.signOut();
+                    toggleSidebar();
+                  }}
+                  class="hideOnMobile"
+                >
+                  Logout
+                </li>
+              </Link>
+            ) : (
+              <Link to="/PoopyPoClient/login">
+                <li onClick={toggleSidebar} class="hideOnMobile">
+                  Login
+                </li>
+              </Link>
+            )}
           </ul>
         </div>
       )}

@@ -3,6 +3,12 @@
   justify-content: space-evenly;
   padding: 10px;
 }
+
+.flex {
+  display: flex;
+  flex-direction: row;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -43,8 +49,7 @@
 }
 
 .container2 {
-  /* Styles for the container element (optional) */
-  height: 100%; /* Set container height to 100% of viewport height */
+  height: 100%;
   width: 100%;
   padding-top: 10px;
   padding-left: 10px;
@@ -66,7 +71,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  /* background-color: rgb(249, 182, 109); */
+  background-color: rgb(249, 182, 109);
   background: rgb(101 163, 67);
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
 }
@@ -83,13 +88,13 @@ body {
 
 nav {
   display: flex;
+  justify-content: space-between;
   width: 100%;
   background: rgb(101 163, 67);
   box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
 }
 
 nav ul {
-  width: 100%;
   list-style: none;
   display: flex;
   justify-content: flex-end;

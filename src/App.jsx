@@ -6,6 +6,7 @@ import Sidebar from "./Components/Sidebar";
 import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./Components/Login";
+import About from "./Components/About";
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -21,8 +22,8 @@ const App = () => {
         <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         <Routes>
           <Route path="/PoopyPoClient" element={<PoopyMap />} />
-          <Route path="/about" element={<h1>About</h1>} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/PoopyPoClient/about" element={<About />} />
+          <Route path="/PoopyPoClient/login" element={<Login />} />
         </Routes>
       </div>
     </Router>

@@ -4,6 +4,8 @@ import { RandonPoopLocationRishonLetsion } from "../Logic/PoopyMapLogic";
 import "../Styles.css";
 import Poopy from "../assets/poopEmojy.png";
 import Poopy2 from "../assets/poopyEmojy2.png";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../util/firebase";
 
 const buttonStyle = {
   margin: "0 10px", // Adds space between the buttons
@@ -15,6 +17,7 @@ const buttonStyle = {
   cursor: "pointer",
 };
 const MapButtons = ({ addPoint }) => {
+  const [user, loading] = useAuthState(auth);
   const makeRealPoint = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       const key = JSON.stringify(
@@ -26,13 +29,16 @@ const MapButtons = ({ addPoint }) => {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
         key: key,
+        user: user ? user.displayName : "Anonymous",
       };
       addPoint(point);
     });
   };
 
   const makeRandomPoint = () => {
-    addPoint(RandonPoopLocationRishonLetsion());
+    addPoint(
+      RandonPoopLocationRishonLetsion(user ? user.displayName : "Anonymous")
+    );
   };
 
   return (

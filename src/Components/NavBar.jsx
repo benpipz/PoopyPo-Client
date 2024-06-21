@@ -1,24 +1,51 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Icon3 from "./../assets/poopyDog.png";
-
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "../Styles.css";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { auth } from "../../util/firebase";
 
 const NavBar = ({ toggleSidebar }) => {
+  const [user, loading] = useAuthState(auth);
+
   return (
     <nav>
-      <img src={Icon3} style={{ width: "50px", height: "50px" }} alt="logo" />
-      <h4 style={{ fontFamily: "Trebuchet MS " }}>Poopypo</h4>
+      <div style={{ display: "flex" }}>
+        <img src={Icon3} style={{ width: "50px", height: "50px" }} alt="logo" />
+        <h4 style={{ fontFamily: "Trebuchet MS " }}>Poopypo</h4>
+      </div>
+      <div className="flex">
+        {user && user.photoURL && (
+          <h4>
+            <img
+              src={
+                "https://lh3.googleusercontent.com/a/ACg8ocKuCln5L1jmy1h-HGFjg6HJaRXP1In-qw1wPv5X5xqXPkMwUp0=s96-c"
+              }
+              alt="Round Image"
+              class="rounded-full shadow-lg w-12 h-12"
+            ></img>
+            Hello {user.displayName}
+          </h4>
+        )}
+      </div>
       <ul>
-        <Link to="/">
+        <Link to="/PoopyPoClient">
           <li class="hideOnMobile">Home</li>
         </Link>
-        <Link to="/about">
+        <Link to="/PoopyPoClient/about">
           <li class="hideOnMobile">About</li>
         </Link>
-        <Link to="/login">
-          <li class="hideOnMobile">Login</li>
-        </Link>
+        {user ? (
+          <Link to="/PoopyPoClient">
+            <li onClick={() => auth.signOut()} class="hideOnMobile">
+              Logout
+            </li>
+          </Link>
+        ) : (
+          <Link to="/PoopyPoClient/login">
+            <li class="hideOnMobile">Login</li>
+          </Link>
+        )}
         <li class="menu-button">
           <svg
             onClick={toggleSidebar}

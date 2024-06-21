@@ -43,6 +43,7 @@ const Points = ({ points, askForRoute }) => {
           return (
             <MarkerWithInfoWindow
               position={point}
+              reporter={point.name}
               title={"poop"}
               content={point.key}
               key={point.key}
