@@ -58,7 +58,12 @@ const PoopyMap = () => {
             <Points points={points} askForRoute={updateRoute} />
             {user && (
               <div style={overlayStyle}>
-                {<MapButtons addPoint={addToCurrentPoints} />}
+                {
+                  <MapButtons
+                    addPoint={addToCurrentPoints}
+                    location={localLocation}
+                  />
+                }
               </div>
             )}
           </Map>

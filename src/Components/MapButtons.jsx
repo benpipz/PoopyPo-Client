@@ -1,6 +1,9 @@
 import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { RandonPoopLocationRishonLetsion } from "../Logic/PoopyMapLogic";
+import {
+  RandonPoopLocationRishonLetsion,
+  randomLocation,
+} from "../Logic/PoopyMapLogic";
 import "../Styles.css";
 import Poopy from "../assets/poopEmojy.png";
 import Poopy2 from "../assets/poopyEmojy2.png";
@@ -17,7 +20,7 @@ const buttonStyle = {
   borderRadius: "5px",
   cursor: "pointer",
 };
-const MapButtons = ({ addPoint }) => {
+const MapButtons = ({ addPoint, location }) => {
   const [user, loading] = useAuthState(auth);
   const [buttonInfo, setButtonInfo] = useState(true);
 
@@ -45,7 +48,11 @@ const MapButtons = ({ addPoint }) => {
 
   const makeRandomPoint = () => {
     addPoint(
-      RandonPoopLocationRishonLetsion(user ? user.displayName : "Anonymous")
+      randomLocation(
+        location.lat,
+        location.lng,
+        user ? user.displayName : "Anonymous"
+      )
     );
   };
 
