@@ -18,9 +18,7 @@ const NavBar = ({ toggleSidebar }) => {
         {user && user.photoURL && (
           <h4>
             <img
-              src={
-                "https://lh3.googleusercontent.com/a/ACg8ocKuCln5L1jmy1h-HGFjg6HJaRXP1In-qw1wPv5X5xqXPkMwUp0=s96-c"
-              }
+              src={user.photoURL}
               alt="Round Image"
               class="rounded-full shadow-lg w-12 h-12"
             ></img>
