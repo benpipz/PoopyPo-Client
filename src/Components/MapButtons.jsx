@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { RandonPoopLocationRishonLetsion } from "../Logic/PoopyMapLogic";
 import "../Styles.css";
@@ -6,6 +6,7 @@ import Poopy from "../assets/poopEmojy.png";
 import Poopy2 from "../assets/poopyEmojy2.png";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../util/firebase";
+import { useState } from "react";
 
 const buttonStyle = {
   margin: "0 10px", // Adds space between the buttons
@@ -18,6 +19,13 @@ const buttonStyle = {
 };
 const MapButtons = ({ addPoint }) => {
   const [user, loading] = useAuthState(auth);
+  const [buttonInfo, setButtonInfo] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setButtonInfo(false);
+    }, 5000);
+  }, []);
   const makeRealPoint = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       const key = JSON.stringify(
@@ -43,6 +51,7 @@ const MapButtons = ({ addPoint }) => {
 
   return (
     <div className="buttons">
+      {buttonInfo && <h2 className="button-text">Poop your location</h2>}
       <img
         src={Poopy}
         style={{
@@ -55,13 +64,14 @@ const MapButtons = ({ addPoint }) => {
         alt="poopy"
         onClick={makeRealPoint}
       />
+      {buttonInfo && <h2 className="button-text">Poop random location</h2>}
+
       <img
         src={Poopy2}
         style={{ width: "60px", height: "60px", marginLeft: "" }}
         alt="poopy"
         onClick={makeRandomPoint}
       />
-
       {/* <button className="btn btn-primary" onClick={makeRealPoint}>
         GPS
       </button>

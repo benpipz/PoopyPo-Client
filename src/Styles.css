@@ -194,3 +194,9 @@ nav a {
   width: 80px;
   height: 80px;
 }
+
+.button-text {
+  font-size: 1 em;
+  font-weight: bold;
+  color: rgb(101, 163, 76);
+}

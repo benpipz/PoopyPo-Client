@@ -10,6 +10,7 @@ const Login = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState();
   const googleProvider = new GoogleAuthProvider();
+
   const GoogleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
@@ -19,6 +20,11 @@ const Login = () => {
       console.log(error);
     }
   };
+
+  const tbd = () => {
+    alert("TBD");
+  };
+
   return (
     <div className="shadow-xl mt-10 p-10 text-gray-700 rounded-lg">
       <h2 className="text-3xl font-medium">Join today!</h2>
@@ -32,7 +38,10 @@ const Login = () => {
             <FcGoogle className="text-2xl" />
             Sign in with Google
           </button>
-          <button className="text-white bg-gray-700 p-4 w-full font-medium rounded-lg flex align-middle gap-2 ">
+          <button
+            onClick={tbd}
+            className="text-white bg-gray-700 p-4 w-full font-medium rounded-lg flex align-middle gap-2 "
+          >
             <AiFillFacebook className="text-2xl text-blue-300" />
             Sign in with Facebook
           </button>
