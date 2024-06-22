@@ -41,6 +41,7 @@
   align-items: center;
   background-color: rgb(253, 236, 175);
   height: 100vh;
+  width: 100vw;
   transition: filter 0.3s;
 }
 

@@ -7,6 +7,7 @@ import { useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Login from "./Components/Login";
 import About from "./Components/About";
+import MapComponent from "./Components/Map/MapComponent";
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -21,7 +22,7 @@ const App = () => {
         <NavBar toggleSidebar={toggleSidebar} />
         <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
         <Routes>
-          <Route path="/PoopyPoClient" element={<PoopyMap />} />
+          <Route path="/PoopyPoClient" element={<MapComponent />} />
           <Route path="/PoopyPoClient/about" element={<About />} />
           <Route path="/PoopyPoClient/login" element={<Login />} />
         </Routes>

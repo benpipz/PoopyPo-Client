@@ -22,10 +22,10 @@ const overlayStyle = {
   zIndex: 100,
 };
 
-const PoopyMap = () => {
+const PoopyMap = ({ localLocation }) => {
   const [user, loading] = useAuthState(auth);
   const [points, setPoints] = useState([]);
-  const [localLocation, setLocalLocation] = useState(initialLocation);
+  // const [localLocation, setLocalLocation] = useState(initialLocation);
   const [askForRoute, setAskForRoute] = useState();
 
   const addToCurrentPoints = (newpoint) => {
@@ -36,9 +36,9 @@ const PoopyMap = () => {
     setAskForRoute(location);
   };
 
-  useEffect(() => {
-    RetreiveLocalLocation(setLocalLocation);
-  }, []);
+  // useEffect(() => {
+  //   RetreiveLocalLocation(setLocalLocation);
+  // }, []);
 
   return (
     <div className="container2">

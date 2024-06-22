@@ -65,3 +65,23 @@ export const RetreiveLocalLocation = (setLocalLocation) => {
     });
   });
 };
+
+export const requestGeolocation = (setPosition) => {
+  navigator.geolocation.getCurrentPosition((position) => {
+    setPosition({
+      lat: position.coords.latitude,
+      lng: position.coords.longitude,
+    });
+  });
+};
+
+export const checkGeolocationPermission =  () => {
+  const permission =  navigator.permissions.query({
+    name: "geolocation",
+  });
+
+  if (permission.state === "granted") {
+    return true;
+  }
+  return false;
+};
