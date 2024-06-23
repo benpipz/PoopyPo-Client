@@ -1,15 +1,13 @@
 import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {
-  RandonPoopLocationRishonLetsion,
-  randomLocation,
-} from "../Logic/PoopyMapLogic";
+import { randomLocation } from "../Logic/PoopyMapLogic";
 import "../Styles.css";
 import Poopy from "../assets/poopEmojy.png";
 import Poopy2 from "../assets/poopyEmojy2.png";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../util/firebase";
 import { useState } from "react";
+import { useMap } from "@vis.gl/react-google-maps";
 
 const buttonStyle = {
   margin: "0 10px", // Adds space between the buttons
@@ -20,9 +18,14 @@ const buttonStyle = {
   borderRadius: "5px",
   cursor: "pointer",
 };
-const MapButtons = ({ addPoint, location }) => {
+const MapButtons = ({ addPoint, location, lastPoint }) => {
+  const map = useMap();
   const [user, loading] = useAuthState(auth);
   const [buttonInfo, setButtonInfo] = useState(true);
+
+  useEffect(() => {
+    map.setCenter(lastPoint);
+  }, [lastPoint, map]);
 
   useEffect(() => {
     setTimeout(() => {

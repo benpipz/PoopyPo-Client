@@ -1,16 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import { useState } from "react";
 import Points from "./Points";
 import MapButtons from "../MapButtons";
-import { RetreiveLocalLocation } from "../../Logic/PoopyMapLogic";
 import Directions from "./Directions";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../util/firebase";
-const initialLocation = {
-  lat: 31.9608819275,
-  lng: 34.7959617739531,
-};
 
 const overlayStyle = {
   position: "absolute",
@@ -25,20 +20,17 @@ const overlayStyle = {
 const PoopyMap = ({ localLocation }) => {
   const [user, loading] = useAuthState(auth);
   const [points, setPoints] = useState([]);
-  // const [localLocation, setLocalLocation] = useState(initialLocation);
   const [askForRoute, setAskForRoute] = useState();
+  const [lastPoint, setLastPoint] = useState(localLocation);
 
   const addToCurrentPoints = (newpoint) => {
+    setLastPoint(newpoint);
     setPoints([...points, newpoint]);
   };
 
   const updateRoute = (location) => {
     setAskForRoute(location);
   };
-
-  // useEffect(() => {
-  //   RetreiveLocalLocation(setLocalLocation);
-  // }, []);
 
   return (
     <div className="container2">
@@ -62,6 +54,7 @@ const PoopyMap = ({ localLocation }) => {
                   <MapButtons
                     addPoint={addToCurrentPoints}
                     location={localLocation}
+                    lastPoint={lastPoint}
                   />
                 }
               </div>
