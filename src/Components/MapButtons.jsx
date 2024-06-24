@@ -8,6 +8,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../util/firebase";
 import { useState } from "react";
 import { useMap } from "@vis.gl/react-google-maps";
+import { useDispatch, useSelector } from "react-redux";
+import { addPointToStore } from "../store/mapSlice";
 
 const buttonStyle = {
   margin: "0 10px", // Adds space between the buttons
@@ -18,10 +20,14 @@ const buttonStyle = {
   borderRadius: "5px",
   cursor: "pointer",
 };
-const MapButtons = ({ addPoint, location, lastPoint }) => {
+const MapButtons = ({}) => {
   const map = useMap();
   const [user, loading] = useAuthState(auth);
   const [buttonInfo, setButtonInfo] = useState(true);
+  const lastPoint = useSelector((state) => state.map.lastPoint);
+  const location = useSelector((state) => state.map.localLocation);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     map.setCenter(lastPoint);
@@ -32,6 +38,7 @@ const MapButtons = ({ addPoint, location, lastPoint }) => {
       setButtonInfo(false);
     }, 5000);
   }, []);
+
   const makeRealPoint = () => {
     navigator.geolocation.getCurrentPosition((position) => {
       const key = JSON.stringify(
@@ -45,18 +52,17 @@ const MapButtons = ({ addPoint, location, lastPoint }) => {
         key: key,
         user: user ? user.displayName : "Anonymous",
       };
-      addPoint(point);
+      dispatch(addPointToStore(point));
     });
   };
 
   const makeRandomPoint = () => {
-    addPoint(
-      randomLocation(
-        location.lat,
-        location.lng,
-        user ? user.displayName : "Anonymous"
-      )
+    const point = randomLocation(
+      location.lat,
+      location.lng,
+      user ? user.displayName : "Anonymous"
     );
+    dispatch(addPointToStore(point));
   };
 
   return (

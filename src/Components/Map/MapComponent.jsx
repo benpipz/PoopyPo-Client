@@ -1,12 +1,15 @@
 import React from "react";
 import PoopyMap from "./PoopyMap";
 import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setLocalLocation } from "../../store/mapSlice";
 
 const MapComponent = () => {
-  const [localLocation, setLocalLocation] = useState();
   const [permissionState, setPermissionState] = useState(false);
+  const localLocation = useSelector((state) => state.map.localLocation);
+  const dispatch = useDispatch();
 
-  const geolocationPremission = (setLocalLocation) => {
+  const geolocationPremission = () => {
     navigator.permissions
       .query({
         name: "geolocation",
@@ -15,18 +18,20 @@ const MapComponent = () => {
         setPermissionState(permission.state);
         if (permission.state === "granted") {
           navigator.geolocation.getCurrentPosition((position) => {
-            setLocalLocation({
-              lat: position.coords.latitude,
-              lng: position.coords.longitude,
-            });
+            dispatch(
+              setLocalLocation({
+                lat: position.coords.latitude,
+                lng: position.coords.longitude,
+              })
+            );
           });
         }
       });
   };
 
   useEffect(() => {
-    geolocationPremission(setLocalLocation);
-  }, [, localLocation]);
+    geolocationPremission();
+  }, []);
 
   return (
     <div>
@@ -40,13 +45,15 @@ const MapComponent = () => {
             onClick={() => {
               navigator.geolocation.getCurrentPosition(
                 (position) => {
-                  setLocalLocation({
-                    lat: position.coords.latitude,
-                    lng: position.coords.longitude,
-                  });
+                  dispatch(
+                    setLocalLocation({
+                      lat: position.coords.latitude,
+                      lng: position.coords.longitude,
+                    })
+                  );
                 },
                 (error) => {
-                  geolocationPremission(setLocalLocation);
+                  geolocationPremission();
                 }
               );
             }}

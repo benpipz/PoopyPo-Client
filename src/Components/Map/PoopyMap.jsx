@@ -6,6 +6,7 @@ import MapButtons from "../MapButtons";
 import Directions from "./Directions";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../util/firebase";
+import { useSelector } from "react-redux";
 
 const overlayStyle = {
   position: "absolute",
@@ -19,14 +20,8 @@ const overlayStyle = {
 
 const PoopyMap = ({ localLocation }) => {
   const [user, loading] = useAuthState(auth);
-  const [points, setPoints] = useState([]);
   const [askForRoute, setAskForRoute] = useState();
-  const [lastPoint, setLastPoint] = useState(localLocation);
-
-  const addToCurrentPoints = (newpoint) => {
-    setLastPoint(newpoint);
-    setPoints([...points, newpoint]);
-  };
+  const pointsFromStore = useSelector((state) => state.map.points);
 
   const updateRoute = (location) => {
     setAskForRoute(location);
@@ -47,18 +42,8 @@ const PoopyMap = ({ localLocation }) => {
             {askForRoute && (
               <Directions from={localLocation} to={askForRoute} />
             )}
-            <Points points={points} askForRoute={updateRoute} />
-            {user && (
-              <div style={overlayStyle}>
-                {
-                  <MapButtons
-                    addPoint={addToCurrentPoints}
-                    location={localLocation}
-                    lastPoint={lastPoint}
-                  />
-                }
-              </div>
-            )}
+            <Points points={pointsFromStore} askForRoute={updateRoute} />
+            {user && <div style={overlayStyle}>{<MapButtons />}</div>}
           </Map>
         </div>
       </APIProvider>
