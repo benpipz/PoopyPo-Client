@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Icon3 from "./../assets/poopyDog.png";
 import LogoText from "./../assets/LogoText.png";
-
+import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import "../Styles.css";
 import { useAuthState } from "react-firebase-hooks/auth";
@@ -11,19 +11,51 @@ import RoundImage from "./Utils/RoundImage";
 
 const NavBar = ({ toggleSidebar }) => {
   const [user, loading] = useAuthState(auth);
+  const [userWelcome, setUserWelcome] = useState("");
+
+  useEffect(() => {
+    if (user) {
+      setUserWelcome(`Hello, ${user.displayName}`);
+      setTimeout(() => {
+        setUserWelcome(user.displayName);
+      }, 5000);
+    }
+  }, [user]);
 
   return (
     <nav>
       <div style={{ display: "flex" }}>
         <img src={Icon3} style={{ width: "50px", height: "50px" }} alt="logo" />
-        <img src={LogoText} style={{ width: "150px" }} alt="logo" />
+        <div
+          style={{
+            justifyContent: "center",
+            alignContent: "center",
+          }}
+        >
+          <img
+            src={LogoText}
+            style={{
+              width: "90px",
+              height: "38px",
+            }}
+            alt="logo"
+          />
+        </div>
       </div>
       <div className="flex">
         {user && user.photoURL && (
-          <h4>
+          <>
             <RoundImage src={user.photoURL} />
-            Hello {user.displayName}
-          </h4>
+            <Typography
+              style={{
+                justifyContent: "center",
+                alignContent: "center",
+                padding: "10px",
+              }}
+            >
+              {userWelcome}
+            </Typography>
+          </>
         )}
       </div>
       <ul>
