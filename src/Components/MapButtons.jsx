@@ -11,15 +11,6 @@ import { useMap } from "@vis.gl/react-google-maps";
 import { useDispatch, useSelector } from "react-redux";
 import { addPointToStore } from "../store/mapSlice";
 
-const buttonStyle = {
-  margin: "0 10px", // Adds space between the buttons
-  padding: "10px 20px",
-  backgroundColor: "#007BFF",
-  color: "white",
-  border: "none",
-  borderRadius: "5px",
-  cursor: "pointer",
-};
 const MapButtons = ({}) => {
   const map = useMap();
   const [user, loading] = useAuthState(auth);
@@ -30,7 +21,9 @@ const MapButtons = ({}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    map.setCenter(lastPoint);
+    if (lastPoint && map) {
+      map.setCenter(lastPoint);
+    }
   }, [lastPoint, map]);
 
   useEffect(() => {
@@ -73,27 +66,18 @@ const MapButtons = ({}) => {
         style={{
           width: "60px",
           height: "60px",
-          marginLeft: "",
           marginBottom: "15px",
         }}
-        className="emojyButton"
         alt="poopy"
         onClick={makeRealPoint}
       />
       {buttonInfo && <h2 className="button-text">Poop random location</h2>}
-
       <img
         src={Poopy2}
-        style={{ width: "60px", height: "60px", marginLeft: "" }}
+        style={{ width: "60px", height: "60px" }}
         alt="poopy"
         onClick={makeRandomPoint}
       />
-      {/* <button className="btn btn-primary" onClick={makeRealPoint}>
-        GPS
-      </button>
-      <button className="btn btn-secondary" onClick={makeRandomPoint}>
-        Random
-      </button> */}
     </div>
   );
 };

@@ -30,17 +30,20 @@ const Login = () => {
   const facebookLogin = async () => {
     try {
       const result = await signInWithPopup(auth, fbProvider);
-      const credantial = await FacebookAuthProvider.credentialFromResult(
-        result
-      );
+      const credantial = FacebookAuthProvider.credentialFromResult(result);
       const token = credantial.accessToken;
       let photoUrl = result.user.photoURL + "?height=500&access_token=" + token;
-      await updateProfile(auth.currentUser, { photoURL: photoUrl });
-      setUser(result.user);
-      navigate("/PoopyPoClient");
     } catch (error) {
       console.log(error);
       alert("User already exists please login with google");
+    }
+    try {
+      await updateProfile(auth.currentUser, { photoURL: photoUrl });
+      setUser(result.user);
+      navigate("/PoopyPoClient");
+      s;
+    } catch (error) {
+      console.log(error);
     }
   };
 

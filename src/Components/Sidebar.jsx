@@ -2,41 +2,25 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../util/firebase";
-const Xicon = (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    height="26"
-    viewBox="0 96 960 960"
-    width="26"
-  >
-    <path d="M120 816v-60h720v60H120Zm0-210v-60h720v60H120Zm0-210v-60h720v60H120Z" />
-  </svg>
-);
+import Hamburger from "./Utils/Hamburger";
 
 function Sidebar({ isOpen, toggleSidebar }) {
   const [user, loading] = useAuthState(auth);
 
   return (
     <div className={`sidebar ${isOpen ? "open" : ""}`}>
+      <div
+        className="ben"
+        style={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "flex-end",
+        }}
+      >
+        <Hamburger onClick={toggleSidebar} />
+      </div>
       {isOpen && (
         <div>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "flex-end",
-              marginRight: "-30px",
-            }}
-          >
-            <svg
-              onClick={toggleSidebar}
-              xmlns="http://www.w3.org/2000/svg"
-              height="26"
-              viewBox="0 96 960 960"
-              width="26"
-            >
-              <path d="M120 816v-60h720v60H120Zm0-210v-60h720v60H120Zm0-210v-60h720v60H120Z" />
-            </svg>
-          </div>
           <ul className="sidebar2">
             <Link onClick={toggleSidebar} to="/PoopyPoClient">
               <li>Home</li>
@@ -45,7 +29,7 @@ function Sidebar({ isOpen, toggleSidebar }) {
               <li>About</li>
             </Link>
             {user ? (
-              <Link to="/">
+              <Link to="/PoopyPoClient">
                 <li
                   onClick={() => {
                     auth.signOut();

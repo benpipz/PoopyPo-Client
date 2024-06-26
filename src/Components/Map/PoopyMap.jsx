@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import { useState } from "react";
 import Points from "./Points";
@@ -7,6 +7,7 @@ import Directions from "./Directions";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../util/firebase";
 import { useSelector } from "react-redux";
+import Loader from "./Loader";
 
 const overlayStyle = {
   position: "absolute",
@@ -18,10 +19,11 @@ const overlayStyle = {
   zIndex: 100,
 };
 
-const PoopyMap = ({ localLocation }) => {
+const PoopyMap = () => {
   const [user, loading] = useAuthState(auth);
   const [askForRoute, setAskForRoute] = useState();
   const pointsFromStore = useSelector((state) => state.map.points);
+  const localLocation = useSelector((state) => state.map.localLocation);
 
   const updateRoute = (location) => {
     setAskForRoute(location);
@@ -39,6 +41,7 @@ const PoopyMap = ({ localLocation }) => {
             mapId={"53511ab25062212b"}
             fullscreenControl={false}
           >
+            <Loader />
             {askForRoute && (
               <Directions from={localLocation} to={askForRoute} />
             )}

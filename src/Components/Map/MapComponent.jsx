@@ -36,11 +36,9 @@ const MapComponent = () => {
   return (
     <div>
       <div className="app">
-        {permissionState == "granted" && localLocation && (
-          <PoopyMap localLocation={localLocation} />
-        )}
+        {localLocation && <PoopyMap />}
 
-        {permissionState == "prompt" && (
+        {permissionState == "prompt" && !localLocation && (
           <button
             onClick={() => {
               navigator.geolocation.getCurrentPosition(

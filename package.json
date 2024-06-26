@@ -11,7 +11,11 @@
     "deploy": "vite build && gh-pages -d dist"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@googlemaps/markerclusterer": "^2.5.3",
+    "@mui/icons-material": "^5.15.20",
+    "@mui/material": "^5.15.20",
     "@reduxjs/toolkit": "^2.2.5",
     "@vis.gl/react-google-maps": "^1.1.0",
     "bootstrap": "^5.3.3",
