@@ -201,3 +201,29 @@ nav a {
   font-weight: bold;
   color: rgb(101, 163, 76);
 }
+
+
+.container {
+  position: relative;
+  height: 300px; /* Adjust height as needed */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.ball {
+  animation: drop 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+}
+
+@keyframes drop {
+  0% {
+    transform: translateY(-100%);
+  }
+  70% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

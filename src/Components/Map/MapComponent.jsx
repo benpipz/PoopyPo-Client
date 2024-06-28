@@ -57,7 +57,7 @@ const MapComponent = () => {
             }}
             className="text-white bg-gray-700 p-4 w-half font-medium rounded-lg flex align-middle gap-2 mt-5"
           >
-            ask for premissions
+            Click me for the map
           </button>
         )}
         {permissionState == "denied" && (

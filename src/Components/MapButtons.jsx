@@ -4,12 +4,14 @@ import { randomLocation } from "../Logic/PoopyMapLogic";
 import "../Styles.css";
 import Poopy from "../assets/poopEmojy.png";
 import Poopy2 from "../assets/poopyEmojy2.png";
+import ResetLocationLogo from "../assets/ResetLocationLogo.png";
+
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../util/firebase";
 import { useState } from "react";
 import { useMap } from "@vis.gl/react-google-maps";
 import { useDispatch, useSelector } from "react-redux";
-import { addPointToStore } from "../store/mapSlice";
+import { addPointToStore, resetLocation } from "../store/mapSlice";
 
 const MapButtons = ({}) => {
   const map = useMap();
@@ -49,6 +51,17 @@ const MapButtons = ({}) => {
     });
   };
 
+  const onResetLocation = ()=>{
+    navigator.geolocation.getCurrentPosition((position) => {
+
+      let point = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      dispatch(resetLocation(point));
+  })
+}
+
   const makeRandomPoint = () => {
     const point = randomLocation(
       location.lat,
@@ -60,6 +73,13 @@ const MapButtons = ({}) => {
 
   return (
     <div className="buttons">
+          {buttonInfo && <h2 className="button-text">Reset Location</h2>}
+          <img
+            src={ResetLocationLogo}
+            style={{ width: "60px", height: "60px",marginBottom:"5px" }}
+            alt="poopy"
+            onClick={onResetLocation}
+          />
       {buttonInfo && <h2 className="button-text">Poop your location</h2>}
       <img
         src={Poopy}

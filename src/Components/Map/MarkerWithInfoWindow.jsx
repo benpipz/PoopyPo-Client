@@ -7,7 +7,7 @@ import poop from "../../assets/face-base-poop.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
 import MyInfoWindow from "./InfoWindow";
 
-const image = <img src={poop} style={{ width: "30px", height: "30px" }}></img>;
+const image = <img className="ball" src={poop} style={{ width: "30px", height: "30px" }}></img>;
 
 const MarkerWithInfoWindow = ({
   position,
