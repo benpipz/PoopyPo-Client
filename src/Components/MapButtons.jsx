@@ -12,7 +12,7 @@ import { useState } from "react";
 import { useMap } from "@vis.gl/react-google-maps";
 import { useDispatch, useSelector } from "react-redux";
 import { addPointToStore, resetLocation } from "../store/mapSlice";
-
+import axios from "axios";
 const MapButtons = ({}) => {
   const map = useMap();
   const [user, loading] = useAuthState(auth);
@@ -35,7 +35,7 @@ const MapButtons = ({}) => {
   }, []);
 
   const makeRealPoint = () => {
-    navigator.geolocation.getCurrentPosition((position) => {
+    navigator.geolocation.getCurrentPosition(async (position) => {
       const key = JSON.stringify(
         position.coords.latitude,
         position.coords.longitude
@@ -47,20 +47,29 @@ const MapButtons = ({}) => {
         key: key,
         user: user ? user.displayName : "Anonymous",
       };
+      var newPoint = {
+        Latitude: point.lat,
+        Longitude: point.lng,
+        Uid: "1ff06079-8c96-4fd0-e474-08dc9dd2efa1",
+      };
+      const reuslt = await axios.post(
+        "https://localhost:7236/api/points",
+        newPoint
+      );
+      console.log(reuslt);
       dispatch(addPointToStore(point));
     });
   };
 
-  const onResetLocation = ()=>{
+  const onResetLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
-
       let point = {
         lat: position.coords.latitude,
-        lng: position.coords.longitude
+        lng: position.coords.longitude,
       };
       dispatch(resetLocation(point));
-  })
-}
+    });
+  };
 
   const makeRandomPoint = () => {
     const point = randomLocation(
@@ -73,13 +82,13 @@ const MapButtons = ({}) => {
 
   return (
     <div className="buttons">
-          {buttonInfo && <h2 className="button-text">Reset Location</h2>}
-          <img
-            src={ResetLocationLogo}
-            style={{ width: "60px", height: "60px",marginBottom:"5px" }}
-            alt="poopy"
-            onClick={onResetLocation}
-          />
+      {buttonInfo && <h2 className="button-text">Reset Location</h2>}
+      <img
+        src={ResetLocationLogo}
+        style={{ width: "60px", height: "60px", marginBottom: "5px" }}
+        alt="poopy"
+        onClick={onResetLocation}
+      />
       {buttonInfo && <h2 className="button-text">Poop your location</h2>}
       <img
         src={Poopy}

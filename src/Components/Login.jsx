@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { AiFillFacebook } from "react-icons/ai";
 import {
@@ -10,6 +10,7 @@ import {
 import { auth } from "../../util/firebase";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -17,6 +18,27 @@ const Login = () => {
   const googleProvider = new GoogleAuthProvider();
   const fbProvider = new FacebookAuthProvider();
 
+  useEffect(() => {
+    async () => {
+      if (user) {
+        var userObj = {
+          Name: user.displayName,
+          Email: user.email,
+          Uid: user.uid,
+        };
+        const respoonse = await axios.get(
+          `https://localhost:7236/api/users/${result.user.uid}`
+        );
+        if (!(respoonse.status == "200")) {
+          const response = await axios.post(
+            "https://localhost:7236/api/users",
+            userObj
+          );
+          console.log(response.data);
+        }
+      }
+    };
+  }, [user]);
   const googleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
