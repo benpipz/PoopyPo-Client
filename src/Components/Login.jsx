@@ -19,15 +19,19 @@ const Login = () => {
   const fbProvider = new FacebookAuthProvider();
 
   useEffect(() => {
-    async () => {
+    console.log("user changed");
+  }, [user]);
+
+  useEffect(() => {
+    const login = async () => {
       if (user) {
         var userObj = {
           Name: user.displayName,
           Email: user.email,
-          Uid: user.uid,
+          Id: user.uid,
         };
         const respoonse = await axios.get(
-          `https://localhost:7236/api/users/${result.user.uid}`
+          `https://localhost:7236/api/users/${user.uid}`
         );
         if (!(respoonse.status == "200")) {
           const response = await axios.post(
@@ -38,12 +42,14 @@ const Login = () => {
         }
       }
     };
+    login();
   }, [user]);
+
   const googleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       setUser(result.user);
-      navigate("/PoopyPoClient");
+      // navigate("/PoopyPoClient");
     } catch (error) {
       console.log(error);
     }
