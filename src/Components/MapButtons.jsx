@@ -36,28 +36,12 @@ const MapButtons = ({}) => {
 
   const makeRealPoint = () => {
     navigator.geolocation.getCurrentPosition(async (position) => {
-      const key = JSON.stringify(
-        position.coords.latitude,
-        position.coords.longitude
-      );
-
-      let point = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-        key: key,
-        user: user ? user.displayName : "Anonymous",
-      };
       var newPoint = {
-        Latitude: point.lat,
-        Longitude: point.lng,
-        Uid: "1ff06079-8c96-4fd0-e474-08dc9dd2efa1",
+        Latitude: position.coords.latitude,
+        Longitude: position.coords.longitude,
+        UserId: user.uid,
       };
-      const reuslt = await axios.post(
-        "https://localhost:7236/api/points",
-        newPoint
-      );
-      console.log(reuslt);
-      dispatch(addPointToStore(point));
+      await addPoint(newPoint);
     });
   };
 
@@ -71,13 +55,18 @@ const MapButtons = ({}) => {
     });
   };
 
-  const makeRandomPoint = () => {
-    const point = randomLocation(
-      location.lat,
-      location.lng,
-      user ? user.displayName : "Anonymous"
-    );
-    dispatch(addPointToStore(point));
+  const makeRandomPoint = async () => {
+    const point = randomLocation(location.lat, location.lng);
+    point["UserId"] = user.uid;
+
+    await addPoint(point);
+  };
+
+  const addPoint = async (point) => {
+    const result = await axios.post("https://localhost:7236/api/points", point);
+    if (result.status === 201) {
+      dispatch(addPointToStore(result.data));
+    }
   };
 
   return (

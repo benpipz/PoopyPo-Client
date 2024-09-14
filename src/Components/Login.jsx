@@ -22,34 +22,31 @@ const Login = () => {
     console.log("user changed");
   }, [user]);
 
-  useEffect(() => {
-    const login = async () => {
-      if (user) {
-        var userObj = {
-          Name: user.displayName,
-          Email: user.email,
-          Id: user.uid,
-        };
-        const respoonse = await axios.get(
-          `https://localhost:7236/api/users/${user.uid}`
+  const VerifyUser = async (user) => {
+    if (user) {
+      var userObj = {
+        Name: user.displayName,
+        Email: user.email,
+        Id: user.uid,
+      };
+      const respoonse = await axios.get(
+        `https://localhost:7236/api/users/${user.uid}`
+      );
+      if (!(respoonse.status == "200")) {
+        const response = await axios.post(
+          "https://localhost:7236/api/users",
+          userObj
         );
-        if (!(respoonse.status == "200")) {
-          const response = await axios.post(
-            "https://localhost:7236/api/users",
-            userObj
-          );
-          console.log(response.data);
-        }
       }
-    };
-    login();
-  }, [user]);
+    }
+  };
 
   const googleLogin = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       setUser(result.user);
-      // navigate("/PoopyPoClient");
+      await VerifyUser(result.user);
+      navigate("/PoopyPoClient");
     } catch (error) {
       console.log(error);
     }

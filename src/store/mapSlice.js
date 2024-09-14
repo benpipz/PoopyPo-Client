@@ -7,15 +7,23 @@ export const mapSlice = createSlice({
     addPointToStore: (state, action) => {
       state.points.push(action.payload);
     },
+    setInitialPoints: (state, action) => {
+      state.points = action.payload;
+    },
     setLocalLocation: (state, action) => {
       state.localLocation = action.payload;
     },
     resetLocation: (state, action) => {
       state.lastPoint = action.payload;
-    }
+    },
   },
 });
 
-export const { addPointToStore, setLocalLocation, resetLocation } = mapSlice.actions;
+export const {
+  addPointToStore,
+  setLocalLocation,
+  resetLocation,
+  setInitialPoints,
+} = mapSlice.actions;
 
 export default mapSlice.reducer;

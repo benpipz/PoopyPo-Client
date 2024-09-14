@@ -7,52 +7,47 @@ import poop from "../../assets/face-base-poop.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
 import MyInfoWindow from "./InfoWindow";
 
-const image = <img className="ball" src={poop} style={{ width: "30px", height: "30px" }}></img>;
+const image = (
+  <img
+    className="ball"
+    src={poop}
+    style={{ width: "30px", height: "30px" }}
+  ></img>
+);
 
 const MarkerWithInfoWindow = ({
-  position,
-  reporter,
-  title,
-  content,
+  point,
   askForRoute,
-  currentShowing,
-  setcurrentShowing,
+  isMarkerWindowShowing,
+  setisMarkerWindowShowing,
 }) => {
   const [markerRef, marker] = useAdvancedMarkerRef();
 
-  const [infoWindowShown, setInfoWindowShown] = useState(false);
   const [upvotes, setUpvotes] = useState(0);
-  const handleMarkerClick = useCallback(() => {
-    setcurrentShowing(position);
-    setInfoWindowShown((isShown) => !isShown);
-  }, []);
-
-  useEffect(() => {
-    if (currentShowing != position) {
-      handleClose();
-    }
-  }, [currentShowing]);
-  const handleClose = useCallback(() => setInfoWindowShown(false), []);
+  const handleMarkerClick = () => {
+    setisMarkerWindowShowing(point.id);
+  };
 
   const getRoute = () => {
-    askForRoute(position);
+    askForRoute({ lat: point.latitude, lng: point.longitude });
   };
+
   return (
     <>
       <AdvancedMarker
         ref={markerRef}
-        position={position}
+        position={{ lat: point.latitude, lng: point.longitude }}
         onClick={handleMarkerClick}
       >
         {image}
       </AdvancedMarker>
-      {infoWindowShown && (
-        <InfoWindow anchor={marker} onClose={handleClose}>
+      {isMarkerWindowShowing && (
+        <InfoWindow anchor={marker}>
           <MyInfoWindow
             upvotes={upvotes}
             setUpvotes={setUpvotes}
             getRoute={getRoute}
-            reporter={reporter}
+            reporter={point.user.familyName}
           />
         </InfoWindow>
       )}

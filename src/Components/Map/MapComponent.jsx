@@ -2,7 +2,8 @@ import React from "react";
 import PoopyMap from "./PoopyMap";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setLocalLocation } from "../../store/mapSlice";
+import { setLocalLocation, setInitialPoints } from "../../store/mapSlice";
+import axios from "axios";
 
 const MapComponent = () => {
   const [permissionState, setPermissionState] = useState(false);
@@ -28,6 +29,14 @@ const MapComponent = () => {
         }
       });
   };
+
+  useEffect(() => {
+    const getPointsFromServer = async () => {
+      const result = await axios.get("https://localhost:7236/api/points");
+      dispatch(setInitialPoints(result.data));
+    };
+    getPointsFromServer();
+  }, []);
 
   useEffect(() => {
     geolocationPremission();

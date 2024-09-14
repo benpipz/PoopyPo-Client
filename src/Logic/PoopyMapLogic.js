@@ -54,7 +54,7 @@ export const randomLocation = (lat, lng, reporter) => {
   const newLatDeg = (newLat * 180) / Math.PI;
   const newLngDeg = (newLng * 180) / Math.PI;
 
-  return { lat: newLatDeg, lng: newLngDeg, name: reporter };
+  return { Latitude: newLatDeg, Longitude: newLngDeg, name: reporter };
 };
 
 export const RetreiveLocalLocation = (setLocalLocation) => {
@@ -75,8 +75,8 @@ export const requestGeolocation = (setPosition) => {
   });
 };
 
-export const checkGeolocationPermission =  () => {
-  const permission =  navigator.permissions.query({
+export const checkGeolocationPermission = () => {
+  const permission = navigator.permissions.query({
     name: "geolocation",
   });
 

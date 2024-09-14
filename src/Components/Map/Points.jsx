@@ -7,7 +7,7 @@ const Points = ({ points, askForRoute }) => {
   const map = useMap();
   const [markers, setMarkers] = useState({});
   // const clusterer = useRef(null);
-  const [currentShowing, setcurrentShowing] = useState();
+  const [isMarkerWindowShowing, setisMarkerWindowShowing] = useState("");
 
   // useEffect(() => {
   //   if (!map) return;
@@ -42,14 +42,13 @@ const Points = ({ points, askForRoute }) => {
         points.map((point) => {
           return (
             <MarkerWithInfoWindow
-              position={point}
-              reporter={point.name}
+              point={point}
               title={"poop"}
               content={point.key}
-              key={point.key}
+              key={point.id}
               askForRoute={askForRoute}
-              setcurrentShowing={setcurrentShowing}
-              currentShowing={currentShowing}
+              setisMarkerWindowShowing={setisMarkerWindowShowing}
+              isMarkerWindowShowing={isMarkerWindowShowing === point.id}
             />
           );
         })}

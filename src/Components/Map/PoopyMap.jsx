@@ -9,6 +9,8 @@ import { auth } from "../../../util/firebase";
 import { useSelector } from "react-redux";
 import Loader from "./Loader";
 
+const googleMapsApi = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
+
 const overlayStyle = {
   position: "absolute",
   top: "82%",
@@ -31,7 +33,7 @@ const PoopyMap = () => {
 
   return (
     <div className="container2">
-      <APIProvider apiKey={"AIzaSyC_IxFbNnxR5MKL8i7Y4XyPR-3LLYtGrNg"}>
+      <APIProvider apiKey={googleMapsApi}>
         <div className="sub-div">
           <Map
             style={{ width: "100%", height: "85vh" }}
