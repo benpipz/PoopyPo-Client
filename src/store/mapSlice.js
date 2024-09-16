@@ -16,6 +16,12 @@ export const mapSlice = createSlice({
     resetLocation: (state, action) => {
       state.lastPoint = action.payload;
     },
+    updateVotesForPoint: (state, action) => {
+      const point = state.points.find(
+        (point) => point.id === action.payload.id
+      );
+      point.votes = action.payload.votes;
+    },
   },
 });
 
@@ -24,6 +30,7 @@ export const {
   setLocalLocation,
   resetLocation,
   setInitialPoints,
+  updateVotesForPoint,
 } = mapSlice.actions;
 
 export default mapSlice.reducer;

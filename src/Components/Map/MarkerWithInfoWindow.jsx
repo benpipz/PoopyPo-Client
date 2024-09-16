@@ -43,12 +43,7 @@ const MarkerWithInfoWindow = ({
       </AdvancedMarker>
       {isMarkerWindowShowing && (
         <InfoWindow anchor={marker}>
-          <MyInfoWindow
-            upvotes={upvotes}
-            setUpvotes={setUpvotes}
-            getRoute={getRoute}
-            reporter={point.user.familyName}
-          />
+          <MyInfoWindow point={point} getRoute={getRoute} />
         </InfoWindow>
       )}
     </>
