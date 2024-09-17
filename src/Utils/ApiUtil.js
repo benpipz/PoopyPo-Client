@@ -22,7 +22,8 @@ export const Get = async (url) => {
 
 export const Put = async (url, data = undefined) => {
   try {
-    const response = await axios.put(baseUrl + url, data);
+    const finalUrl = baseUrl + url;
+    const response = await axios.put(finalUrl, data);
     return response;
   } catch (error) {
     console.error(error);

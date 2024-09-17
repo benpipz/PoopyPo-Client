@@ -33,7 +33,9 @@ const MapComponent = () => {
   useEffect(() => {
     const getPointsFromServer = async () => {
       const result = await axios.get("https://localhost:7236/api/points");
-      dispatch(setInitialPoints(result.data));
+      if (result.status == 200) {
+        dispatch(setInitialPoints(result.data));
+      }
     };
     getPointsFromServer();
   }, []);

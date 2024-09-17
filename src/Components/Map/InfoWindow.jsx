@@ -1,25 +1,40 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../Styles.css";
 import Icons from "../../assets/Icons";
 import { auth } from "../../../util/firebase";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { Put } from "../../Utils/ApiUtil";
+import { Get, Put } from "../../Utils/ApiUtil";
 import { useDispatch } from "react-redux";
 import { updateVotesForPoint } from "../../store/mapSlice";
+import { useState } from "react";
 
 const MyInfoWindow = ({ point, getRoute }) => {
   const [user, loading] = useAuthState(auth);
   const dispatch = useDispatch();
+  const [action, setAction] = useState(0);
 
-  const UpdateVote = async (newVoteScore) => {
-    const url = `points/${point.id}/${newVoteScore}`;
+  const UpdateVote = async (newVoteScore, action) => {
+    const url = `Points/${point.id}`;
     const data = { id: point.id, votes: newVoteScore };
-    const result = await Put(url);
+    const result = await Put(url, {
+      userId: point.userId,
+      interaction: action,
+    });
     if (result.status === 200) {
       dispatch(updateVotesForPoint(data));
+      await getLastAction();
     }
   };
+
+  const getLastAction = async () => {
+    const url = `Points/${point.id}/${point.user.id}`;
+    const result = await Get(url);
+    setAction(result);
+  };
+  useEffect(() => {
+    getLastAction();
+  }, []);
 
   return (
     <div>
@@ -33,7 +48,8 @@ const MyInfoWindow = ({ point, getRoute }) => {
           <button
             style={{ margin: "1px" }}
             className="btn btn-success"
-            onClick={async () => await UpdateVote(point.votes + 1)}
+            onClick={async () => await UpdateVote(point.votes + 1, 1)}
+            disabled={action === 1}
           >
             <div className="smallContainer">
               I approve!
@@ -43,7 +59,8 @@ const MyInfoWindow = ({ point, getRoute }) => {
           <button
             style={{ margin: "1px" }}
             className="btn btn-warning"
-            onClick={async () => await UpdateVote(point.votes - 1)}
+            onClick={async () => await UpdateVote(point.votes - 1, 2)}
+            disabled={action === 2}
           >
             <div className="smallContainer">
               Nope
