@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Icon3 from "./../assets/poopyDog.png";
+import PoopyPoLogo from "./../assets/poopyDog.png";
 import LogoText from "./../assets/LogoText.png";
 import { Typography } from "@mui/material";
 import { Link } from "react-router-dom";
@@ -25,7 +25,7 @@ const NavBar = ({ toggleSidebar }) => {
   return (
     <nav>
       <div style={{ display: "flex" }}>
-        <img src={Icon3} style={{ width: "50px", height: "50px" }} alt="logo" />
+        <img src={PoopyPoLogo} style={{ width: "50px", height: "50px" }} alt="logo" />
         <div
           style={{
             justifyContent: "center",

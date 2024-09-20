@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useAdvancedMarkerRef } from "@vis.gl/react-google-maps";
-import { useCallback } from "react";
 import { AdvancedMarker } from "@vis.gl/react-google-maps";
 import { InfoWindow } from "@vis.gl/react-google-maps";
 import poop from "../../assets/face-base-poop.svg";
@@ -23,13 +22,16 @@ const MarkerWithInfoWindow = ({
 }) => {
   const [markerRef, marker] = useAdvancedMarkerRef();
 
-  const [upvotes, setUpvotes] = useState(0);
   const handleMarkerClick = () => {
     setisMarkerWindowShowing(point.id);
   };
 
   const getRoute = () => {
     askForRoute({ lat: point.latitude, lng: point.longitude });
+  };
+
+  const handleClose = () => {
+    setisMarkerWindowShowing("");
   };
 
   return (
@@ -42,7 +44,7 @@ const MarkerWithInfoWindow = ({
         {image}
       </AdvancedMarker>
       {isMarkerWindowShowing && (
-        <InfoWindow anchor={marker}>
+        <InfoWindow anchor={marker} onClose={handleClose}>
           <MyInfoWindow point={point} getRoute={getRoute} />
         </InfoWindow>
       )}

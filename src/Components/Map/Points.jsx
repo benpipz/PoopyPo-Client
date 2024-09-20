@@ -9,6 +9,9 @@ const Points = ({ points, askForRoute }) => {
   // const clusterer = useRef(null);
   const [isMarkerWindowShowing, setisMarkerWindowShowing] = useState("");
 
+  useEffect(() => {
+    console.log(isMarkerWindowShowing);
+  }, [isMarkerWindowShowing]);
   // useEffect(() => {
   //   if (!map) return;
   //   if (!clusterer.current) {
