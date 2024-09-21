@@ -1,7 +1,7 @@
 import React from "react";
 import YourIcon from "../../assets/poopypo.svg";
 
-const Icon = () => {
+const Icon: React.FC = () => {
   const icon = React.useMemo(() => <YourIcon />, []); // Cache the SVG
 
   return (
