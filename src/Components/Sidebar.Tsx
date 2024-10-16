@@ -3,8 +3,13 @@ import { Link } from "react-router-dom";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../util/firebase";
 import Hamburger from "./Utils/Hamburger";
+import { FC } from "react";
 
-function Sidebar({ isOpen, toggleSidebar }) {
+interface SidebarType {
+  isOpen: boolean;
+  toggleSidebar: any;
+}
+const Sidebar: FC<SidebarType> = ({ isOpen, toggleSidebar }) => {
   const [user, loading] = useAuthState(auth);
 
   return (
@@ -35,14 +40,14 @@ function Sidebar({ isOpen, toggleSidebar }) {
                     auth.signOut();
                     toggleSidebar();
                   }}
-                  class="hideOnMobile"
+                  className="hideOnMobile"
                 >
                   Logout
                 </li>
               </Link>
             ) : (
               <Link to="/PoopyPoClient/login">
-                <li onClick={toggleSidebar} class="hideOnMobile">
+                <li onClick={toggleSidebar} className="hideOnMobile">
                   Login
                 </li>
               </Link>
@@ -52,6 +57,6 @@ function Sidebar({ isOpen, toggleSidebar }) {
       )}
     </div>
   );
-}
+};
 
 export default Sidebar;

@@ -13,12 +13,17 @@ import { useMap } from "@vis.gl/react-google-maps";
 import { useDispatch, useSelector } from "react-redux";
 import { addPointToStore, resetLocation } from "../store/mapSlice";
 import axios from "axios";
+import { Location } from "../Types/Infra";
 const MapButtons = ({}) => {
   const map = useMap();
   const [user, loading] = useAuthState(auth);
   const [buttonInfo, setButtonInfo] = useState(true);
-  const lastPoint = useSelector((state) => state.map.lastPoint);
-  const location = useSelector((state) => state.map.localLocation);
+  const lastPoint = useSelector<any>(
+    (state) => state.map.lastPoint
+  ) as Location;
+  const location = useSelector<any>(
+    (state) => state.map.localLocation
+  ) as Location;
 
   const dispatch = useDispatch();
 
@@ -39,7 +44,7 @@ const MapButtons = ({}) => {
       var newPoint = {
         Latitude: position.coords.latitude,
         Longitude: position.coords.longitude,
-        UserId: user.uid,
+        UserId: user?.uid,
       };
       await addPoint(newPoint);
     });
@@ -57,7 +62,7 @@ const MapButtons = ({}) => {
 
   const makeRandomPoint = async () => {
     const point = randomLocation(location.lat, location.lng);
-    point["UserId"] = user.uid;
+    point["UserId"] = user?.uid;
 
     await addPoint(point);
   };

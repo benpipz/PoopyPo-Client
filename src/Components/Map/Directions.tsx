@@ -1,11 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FC } from "react";
 import { useMapsLibrary, useMap } from "@vis.gl/react-google-maps";
+import { Location } from "../../Types/Infra";
+interface DirectionsType {
+  from: Location;
+  to: Location;
+}
 
-const Directions = ({ from, to }) => {
+const Directions: FC<DirectionsType> = ({ from, to }) => {
   const map = useMap();
   const routesLibrary = useMapsLibrary("routes");
-  const [directionsService, setDirectionsService] = useState();
-  const [directionsRenderer, setDirectionsRenderer] = useState();
+  const [directionsService, setDirectionsService] =
+    useState<google.maps.DirectionsService>();
+  const [directionsRenderer, setDirectionsRenderer] =
+    useState<google.maps.DirectionsRenderer>();
 
   useEffect(() => {
     if (!map || !routesLibrary) return;
@@ -20,7 +27,7 @@ const Directions = ({ from, to }) => {
       {
         origin: from,
         destination: to,
-        travelMode: "DRIVING",
+        travelMode: google.maps.TravelMode.DRIVING,
       },
       (response, status) => {
         if (status === "OK") {

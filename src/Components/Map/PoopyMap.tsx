@@ -8,10 +8,11 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../../../util/firebase";
 import { useSelector } from "react-redux";
 import Loader from "./Loader";
+import { Location, Point } from "../../Types/Infra";
 
 const googleMapsApi = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
-const overlayStyle = {
+const overlayStyle: object = {
   position: "absolute",
   top: "82%",
   left: "8px",
@@ -24,8 +25,12 @@ const overlayStyle = {
 const PoopyMap = () => {
   const [user, loading] = useAuthState(auth);
   const [askForRoute, setAskForRoute] = useState();
-  const pointsFromStore = useSelector((state) => state.map.points);
-  const localLocation = useSelector((state) => state.map.localLocation);
+  const pointsFromStore = useSelector<any>((state) => state.map.points) as [
+    Point
+  ];
+  const localLocation = useSelector<any>(
+    (state) => state.map.localLocation
+  ) as Location;
 
   const updateRoute = (location) => {
     setAskForRoute(location);
@@ -36,7 +41,7 @@ const PoopyMap = () => {
       <APIProvider apiKey={googleMapsApi}>
         <div className="sub-div">
           <Map
-            style={{ width: "100%", height: "85vh" }}
+            style={{ width: "100%", height: "90vh" }}
             defaultCenter={localLocation}
             defaultZoom={14}
             gestureHandling={"greedy"}

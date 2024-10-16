@@ -1,13 +1,13 @@
-import React from "react";
+import React, { FC } from "react";
 import PoopyMap from "./PoopyMap";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setLocalLocation, setInitialPoints } from "../../store/mapSlice";
 import axios from "axios";
 
-const MapComponent = () => {
-  const [permissionState, setPermissionState] = useState(false);
-  const localLocation = useSelector((state) => state.map.localLocation);
+const MapComponent: FC<any> = () => {
+  const [permissionState, setPermissionState] = useState<any>(false);
+  const localLocation = useSelector<any>((state) => state.map.localLocation);
   const dispatch = useDispatch();
 
   const geolocationPremission = () => {
@@ -47,7 +47,7 @@ const MapComponent = () => {
   return (
     <div>
       <div className="app">
-        {localLocation && <PoopyMap />}
+        {localLocation != undefined && <PoopyMap />}
 
         {permissionState == "prompt" && !localLocation && (
           <button

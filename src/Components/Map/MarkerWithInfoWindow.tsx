@@ -1,10 +1,11 @@
-import React, { useCallback, useEffect, useState } from "react";
 import { useAdvancedMarkerRef } from "@vis.gl/react-google-maps";
 import { AdvancedMarker } from "@vis.gl/react-google-maps";
 import { InfoWindow } from "@vis.gl/react-google-maps";
 import poop from "../../assets/face-base-poop.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
-import MyInfoWindow from "./InfoWindow";
+import MyInfoWindow from "./MyInfoWindow";
+import { FC } from "react";
+import { Point } from "../../Types/Infra";
 
 const image = (
   <img
@@ -13,8 +14,13 @@ const image = (
     style={{ width: "30px", height: "30px" }}
   ></img>
 );
-
-const MarkerWithInfoWindow = ({
+interface MarkeWithInfoWindowType {
+  point: Point;
+  askForRoute: any;
+  isMarkerWindowShowing: any;
+  setisMarkerWindowShowing: any;
+}
+const MarkerWithInfoWindow: FC<MarkeWithInfoWindowType> = ({
   point,
   askForRoute,
   isMarkerWindowShowing,

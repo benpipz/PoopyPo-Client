@@ -1,11 +1,9 @@
-import React from "react";
-
 const About = () => {
   return (
-    <div class="mt-1.25">
-      <div class="flex items-center justify-center  ">
-        <div class="bg-white p-20 rounded shadow-md max-w-md text-center mt-2">
-          <h1 class="text-2xl font-bold text-center ">
+    <div className="mt-1.25">
+      <div className="flex items-center justify-center  ">
+        <div className="bg-white p-20 rounded shadow-md max-w-md text-center mt-2">
+          <h1 className="text-2xl font-bold text-center ">
             Welcome to{" "}
             <strong style={{ fontSize: "30px", color: "rgb(101 163, 67)" }}>
               PoopyPo

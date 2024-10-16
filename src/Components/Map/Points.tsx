@@ -1,13 +1,19 @@
-import React from "react";
+import React, { FC } from "react";
 import { useMap } from "@vis.gl/react-google-maps";
 import { useState, useRef, useEffect } from "react";
 import MarkerWithInfoWindow from "./MarkerWithInfoWindow";
+import { Point } from "../../Types/Infra";
 
-const Points = ({ points, askForRoute }) => {
-  const map = useMap();
-  const [markers, setMarkers] = useState({});
+interface PointsType {
+  points: [Point];
+  askForRoute: any;
+}
+const Points: FC<PointsType> = ({ points, askForRoute }) => {
+  // const map = useMap();
+  // const [markers, setMarkers] = useState({});
   // const clusterer = useRef(null);
-  const [isMarkerWindowShowing, setisMarkerWindowShowing] = useState("");
+  const [isMarkerWindowShowing, setisMarkerWindowShowing] =
+    useState<string>("");
 
   useEffect(() => {
     console.log(isMarkerWindowShowing);
@@ -45,10 +51,8 @@ const Points = ({ points, askForRoute }) => {
         points.map((point) => {
           return (
             <MarkerWithInfoWindow
-              point={point}
-              title={"poop"}
-              content={point.key}
               key={point.id}
+              point={point}
               askForRoute={askForRoute}
               setisMarkerWindowShowing={setisMarkerWindowShowing}
               isMarkerWindowShowing={isMarkerWindowShowing === point.id}

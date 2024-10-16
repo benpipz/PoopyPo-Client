@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { FC } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../../Styles.css";
 import Icons from "../../assets/Icons";
@@ -8,11 +9,22 @@ import { Get, Put } from "../../Utils/ApiUtil";
 import { useDispatch } from "react-redux";
 import { updateVotesForPoint } from "../../store/mapSlice";
 import { useState } from "react";
+import { Point } from "../../Types/Infra";
 
-const MyInfoWindow = ({ point, getRoute }) => {
+interface MyInfoWindowType {
+  point: Point;
+  getRoute: any;
+}
+
+enum Action {
+  None,
+  Upvote,
+  Downvote,
+}
+const MyInfoWindow: FC<MyInfoWindowType> = ({ point, getRoute }) => {
   const [user, loading] = useAuthState(auth);
   const dispatch = useDispatch();
-  const [action, setAction] = useState(0);
+  const [action, setAction] = useState<Action>(0);
 
   const UpdateVote = async (newVoteScore, action) => {
     const url = `Points/${point.id}`;

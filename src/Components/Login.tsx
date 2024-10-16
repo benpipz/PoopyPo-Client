@@ -14,7 +14,7 @@ import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [user, setUser] = useState();
+  const [user, setUser] = useState<any>();
   const googleProvider = new GoogleAuthProvider();
   const fbProvider = new FacebookAuthProvider();
 
@@ -29,10 +29,10 @@ const Login = () => {
         Email: user.email,
         Id: user.uid,
       };
-      const respoonse = await axios.get(
+      const response = await axios.get(
         `https://localhost:7236/api/users/${user.uid}`
       );
-      if (!(respoonse.status == "200")) {
+      if (!(response.status == 200)) {
         const response = await axios.post(
           "https://localhost:7236/api/users",
           userObj
@@ -56,19 +56,14 @@ const Login = () => {
     try {
       const result = await signInWithPopup(auth, fbProvider);
       const credantial = FacebookAuthProvider.credentialFromResult(result);
-      const token = credantial.accessToken;
+      const token = credantial?.accessToken;
       let photoUrl = result.user.photoURL + "?height=500&access_token=" + token;
+      await updateProfile(auth.currentUser, { photoURL: photoUrl });
+      setUser(result?.user);
+      navigate("/PoopyPoClient");
     } catch (error) {
       console.log(error);
       alert("User already exists please login with google");
-    }
-    try {
-      await updateProfile(auth.currentUser, { photoURL: photoUrl });
-      setUser(result.user);
-      navigate("/PoopyPoClient");
-      s;
-    } catch (error) {
-      console.log(error);
     }
   };
 

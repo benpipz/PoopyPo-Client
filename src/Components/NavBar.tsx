@@ -11,7 +11,7 @@ import RoundImage from "./Utils/RoundImage";
 
 const NavBar = ({ toggleSidebar }) => {
   const [user, loading] = useAuthState(auth);
-  const [userWelcome, setUserWelcome] = useState("");
+  const [userWelcome, setUserWelcome] = useState<any>("");
 
   useEffect(() => {
     if (user) {
@@ -25,7 +25,11 @@ const NavBar = ({ toggleSidebar }) => {
   return (
     <nav>
       <div style={{ display: "flex" }}>
-        <img src={PoopyPoLogo} style={{ width: "50px", height: "50px" }} alt="logo" />
+        <img
+          src={PoopyPoLogo}
+          style={{ width: "50px", height: "50px" }}
+          alt="logo"
+        />
         <div
           style={{
             justifyContent: "center",
@@ -60,23 +64,23 @@ const NavBar = ({ toggleSidebar }) => {
       </div>
       <ul>
         <Link to="/PoopyPoClient">
-          <li class="hideOnMobile">Home</li>
+          <li className="hideOnMobile">Home</li>
         </Link>
         <Link to="/PoopyPoClient/about">
-          <li class="hideOnMobile">About</li>
+          <li className="hideOnMobile">About</li>
         </Link>
         {user ? (
           <Link to="/PoopyPoClient">
-            <li onClick={() => auth.signOut()} class="hideOnMobile">
+            <li onClick={() => auth.signOut()} className="hideOnMobile">
               Logout
             </li>
           </Link>
         ) : (
           <Link to="/PoopyPoClient/login">
-            <li class="hideOnMobile">Login</li>
+            <li className="hideOnMobile">Login</li>
           </Link>
         )}
-        <li class="menu-button">
+        <li className="menu-button">
           <Hamburger onClick={toggleSidebar} />
         </li>
       </ul>
