@@ -5,7 +5,7 @@ import poop from "../../assets/face-base-poop.svg";
 import "bootstrap/dist/css/bootstrap.min.css";
 import MyInfoWindow from "./MyInfoWindow";
 import { FC } from "react";
-import { Point } from "../../Types/Infra";
+import { Point, Location } from "../../Types/Infra";
 
 const image = (
   <img
@@ -16,7 +16,7 @@ const image = (
 );
 interface MarkeWithInfoWindowType {
   point: Point;
-  askForRoute: any;
+  askForRoute: (location: Location) => void;
   isMarkerWindowShowing: any;
   setisMarkerWindowShowing: any;
 }

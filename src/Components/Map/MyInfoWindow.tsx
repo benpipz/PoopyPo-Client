@@ -13,7 +13,7 @@ import { Point } from "../../Types/Infra";
 
 interface MyInfoWindowType {
   point: Point;
-  getRoute: any;
+  getRoute: () => void;
 }
 
 enum Action {

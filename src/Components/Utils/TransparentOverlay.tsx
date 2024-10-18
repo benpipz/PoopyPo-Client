@@ -1,6 +1,10 @@
-import React from "react";
+import { FC } from "react";
 
-const TransparentOverlay = ({ onClick }) => {
+interface TransparentOverlayProps {
+  onClick: () => void;
+}
+
+const TransparentOverlay: FC<TransparentOverlayProps> = ({ onClick }) => {
   return (
     <div
       onClick={onClick}

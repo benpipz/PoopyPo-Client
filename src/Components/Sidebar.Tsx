@@ -7,7 +7,7 @@ import { FC } from "react";
 
 interface SidebarType {
   isOpen: boolean;
-  toggleSidebar: any;
+  toggleSidebar: () => void;
 }
 const Sidebar: FC<SidebarType> = ({ isOpen, toggleSidebar }) => {
   const [user, loading] = useAuthState(auth);

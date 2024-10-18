@@ -6,8 +6,10 @@ import { setLocalLocation, setInitialPoints } from "../../store/mapSlice";
 import axios from "axios";
 
 const MapComponent: FC<any> = () => {
-  const [permissionState, setPermissionState] = useState<any>(false);
-  const localLocation = useSelector<any>((state) => state.map.localLocation);
+  const [permissionState, setPermissionState] = useState<string>("");
+  const localLocation = useSelector<MapSlice>(
+    (state) => state.map.localLocation
+  );
   const dispatch = useDispatch();
 
   const geolocationPremission = () => {

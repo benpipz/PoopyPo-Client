@@ -14,14 +14,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { addPointToStore, resetLocation } from "../store/mapSlice";
 import axios from "axios";
 import { Location } from "../Types/Infra";
+
 const MapButtons = ({}) => {
   const map = useMap();
   const [user, loading] = useAuthState(auth);
   const [buttonInfo, setButtonInfo] = useState(true);
-  const lastPoint = useSelector<any>(
+  const lastPoint: Location = useSelector<MapSlice>(
     (state) => state.map.lastPoint
   ) as Location;
-  const location = useSelector<any>(
+  const location: Location = useSelector<MapSlice>(
     (state) => state.map.localLocation
   ) as Location;
 

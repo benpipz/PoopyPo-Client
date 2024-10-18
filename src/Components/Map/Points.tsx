@@ -5,7 +5,7 @@ import MarkerWithInfoWindow from "./MarkerWithInfoWindow";
 import { Point } from "../../Types/Infra";
 
 interface PointsType {
-  points: [Point];
+  points: Point[];
   askForRoute: any;
 }
 const Points: FC<PointsType> = ({ points, askForRoute }) => {
