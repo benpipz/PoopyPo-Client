@@ -25,6 +25,28 @@ const MyInfoWindow: FC<MyInfoWindowType> = ({ point, getRoute }) => {
   const [user, loading] = useAuthState(auth);
   const dispatch = useDispatch();
   const [action, setAction] = useState<Action>(0);
+  const [imageSrc, setImageSrc] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (point.image) {
+      const photo = base64ToUint8Array(point.image);
+      setImageSrc(`data:image/jpeg;base64,${point.image}`);
+    }
+  }, [point]);
+
+  const base64ToUint8Array = (base64) => {
+    // Decode the Base64 string to a binary string
+    const binaryString = atob(base64);
+    const len = binaryString.length;
+    const bytes = new Uint8Array(len);
+
+    // Convert the binary string to a Uint8Array
+    for (let i = 0; i < len; i++) {
+      bytes[i] = binaryString.charCodeAt(i);
+    }
+
+    return bytes;
+  };
 
   const UpdateVote = async (newVoteScore, action) => {
     const url = `Points/${point.id}`;
@@ -54,9 +76,17 @@ const MyInfoWindow: FC<MyInfoWindowType> = ({ point, getRoute }) => {
         <div>
           <p>upvotes: {point.votes}</p>
           <p>Reporter: {point.user.name}</p>
+          {imageSrc && (
+            <img
+              src={imageSrc}
+              style={{ width: "100px", height: "100px" }}
+              alt="Fetched from server"
+            />
+          )}
         </div>
       ) : (
         <div className="smallCol">
+          {point.description}
           <button
             style={{ margin: "1px" }}
             className="btn btn-success"
@@ -91,6 +121,13 @@ const MyInfoWindow: FC<MyInfoWindowType> = ({ point, getRoute }) => {
           </button>
           <p>upvotes: {point.votes}</p>
           <p>Reporter: {point.user.name}</p>
+          {imageSrc && (
+            <img
+              src={imageSrc}
+              style={{ width: "100px", height: "100px" }}
+              alt="Fetched from server"
+            />
+          )}
         </div>
       )}
     </div>

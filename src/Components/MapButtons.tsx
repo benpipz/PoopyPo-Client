@@ -15,7 +15,7 @@ import { addPointToStore, resetLocation } from "../store/mapSlice";
 import axios from "axios";
 import { Location } from "../Types/Infra";
 
-const MapButtons = ({}) => {
+const MapButtons = ({ SetformOpen }) => {
   const map = useMap();
   const [user, loading] = useAuthState(auth);
   const [buttonInfo, setButtonInfo] = useState(true);
@@ -101,6 +101,12 @@ const MapButtons = ({}) => {
         style={{ width: "60px", height: "60px" }}
         alt="poopy"
         onClick={makeRandomPoint}
+      />
+      <img
+        src={Poopy2}
+        style={{ width: "60px", height: "60px" }}
+        alt="poopy"
+        onClick={SetformOpen}
       />
     </div>
   );

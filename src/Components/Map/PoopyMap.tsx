@@ -9,6 +9,7 @@ import { auth } from "../../../util/firebase";
 import { useSelector } from "react-redux";
 import Loader from "./Loader";
 import { Location, Point } from "../../Types/Infra";
+import PoopForm from "./PoopForm";
 
 const googleMapsApi = import.meta.env.VITE_GOOGLE_MAPS_API_KEY;
 
@@ -25,6 +26,7 @@ const overlayStyle: object = {
 const PoopyMap = () => {
   const [user, loading] = useAuthState(auth);
   const [askForRoute, setAskForRoute] = useState();
+  const [formOpen, SetformOpen] = useState(false);
   const pointsFromStore = useSelector<any>((state) => state.map.points) as [
     Point
   ];
@@ -53,7 +55,25 @@ const PoopyMap = () => {
               <Directions from={localLocation} to={askForRoute} />
             )}
             <Points points={pointsFromStore} askForRoute={updateRoute} />
-            {user && <div style={overlayStyle}>{<MapButtons />}</div>}
+            {user && (
+              <div style={overlayStyle}>
+                {
+                  <MapButtons
+                    SetformOpen={() => {
+                      SetformOpen(!formOpen);
+                    }}
+                  />
+                }
+              </div>
+            )}
+            {
+              <PoopForm
+                isOpen={formOpen}
+                onClose={() => {
+                  SetformOpen(false);
+                }}
+              />
+            }
           </Map>
         </div>
       </APIProvider>

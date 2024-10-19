@@ -11,6 +11,8 @@ export interface Point {
   user: User;
   userId: string;
   votes: number;
+  image: string;
+  description: string;
 }
 
 export interface User {
