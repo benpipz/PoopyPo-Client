@@ -1,10 +1,10 @@
-const Random = (minRange, maxRange) => {
+const Random = (minRange: number, maxRange: number) => {
   const min = Math.ceil(minRange);
   const max = Math.floor(maxRange);
   return Math.random() * (max - min + 1) + min;
 };
 
-export const RandonPoopLocationRishonLetsion = (name) => {
+export const RandonPoopLocationRishonLetsion = (name: string) => {
   const minLat = 31.95;
   const maxLat = 31.99;
   const minLng = 34.75;
@@ -18,7 +18,7 @@ export const RandonPoopLocationRishonLetsion = (name) => {
 };
 
 // Function to generate a random location within a radius of 1 km from a given lat/lng
-export const randomLocation = (lat, lng, reporter) => {
+export const randomLocation = (lat: number, lng: number, reporter: string) => {
   // Earth's radius in kilometers
   const earthRadius = 6371;
 
@@ -75,8 +75,8 @@ export const requestGeolocation = (setPosition) => {
   });
 };
 
-export const checkGeolocationPermission = () => {
-  const permission = navigator.permissions.query({
+export const checkGeolocationPermission = async () => {
+  const permission = await navigator.permissions.query({
     name: "geolocation",
   });
 

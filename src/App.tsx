@@ -1,5 +1,4 @@
 import React from "react";
-import PoopyMap from "./Components/Map/PoopyMap";
 import NavBar from "./Components/NavBar";
 import "./Styles.css";
 import Sidebar from "./Components/Sidebar";
